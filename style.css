@@ -10,7 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #174c0f;
+    background-color: #fff;
 }
 .container {
     display: flex;
@@ -31,7 +31,7 @@ body {
 .btn a {
     text-decoration: none;
     color: #fff;
-    background: #804c0d;
+    background: #111;
     padding: 10px 25px;
     border-radius: 8px;
     box-shadow: 0.5rem 1rem 3rem hs1(0, 0%, 0%, 0.3);
