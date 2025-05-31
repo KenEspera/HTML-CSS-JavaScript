@@ -1,58 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ask Her Out</title>
-    <link rel="stylesheet" href="./style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ask Her Out</title>
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-    <div class="container">
-        <div class="tenor-gif-embed" data-postid="14517299" data-share-method="host" data-aspect-ratio="1" data-width="100%"><a href="https://tenor.com/view/cute-cats-dogs-hug-big-gif-14517299">Cute Cats Sticker</a>from <a href="https://tenor.com/search/cute-stickers">Cute Stickers</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
-        <h1> Will you go out with me??</h1>
-        <p style="color: #111;"> Kyla Gerona Calimutan :></p>
+  <div class="container">
+    <div class="tenor-gif-embed" data-postid="14517299" data-share-method="host" data-aspect-ratio="1" data-width="100%">
+      <a href="https://tenor.com/view/cute-cats-dogs-hug-big-gif-14517299">Cute Cats Sticker</a> from 
+      <a href="https://tenor.com/search/cute-stickers">Cute Stickers</a>
+    </div>
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
-        <div class="btn">
-            <a href="#" onclick="logResponse('yes', 'yes.html')">Yes</a>
-            <a href="#" onclick="logResponse('no', 'no.html')">No</a>
-        </div>
+    <h1>Will you go out with me??</h1>
+    <p style="color: #111;">Kyla Gerona Calimutan :></p>
 
+    <div class="btn">
+      <a href="#" onclick="logResponse('yes', 'yes.html')">Yes</a>
+      <a href="#" onclick="logResponse('no', 'no.html')">No</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB6jFcBRB2HM150YV1PagNFdMosgKrfSj4",
+      authDomain: "askherout-b7d60.firebaseapp.com",
+      projectId: "askherout-b7d60",
+      storageBucket: "askherout-b7d60.firebasestorage.app",
+      messagingSenderId: "424603363785",
+      appId: "1:424603363785:web:8b4d9a0bacf7b9fd1ce018",
+      measurementId: "G-CD047T7W3J"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.logResponse = async function(answer, url) {
+      console.log("Clicked:", answer);
+      try {
+        await addDoc(collection(db, "responses"), {
+          answer: answer,
+          timestamp: new Date()
+        });
+        console.log("Logged to Firestore.");
+        window.location.href = url;
+      } catch (error) {
+        console.error("Error writing to Firestore:", error);
+        window.location.href = url;
+      }
+    };
+  </script>
 </body>
 </html>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
-
-<script>
-    
-const firebaseConfig = {
-  apiKey: "AIzaSyB6jFcBRB2HM150YV1PagNFdMosgKrfSj4",
-  authDomain: "askherout-b7d60.firebaseapp.com",
-  projectId: "askherout-b7d60",
-  storageBucket: "askherout-b7d60.firebasestorage.app",
-  messagingSenderId: "424603363785",
-  appId: "1:424603363785:web:8b4d9a0bacf7b9fd1ce018",
-  measurementId: "G-CD047T7W3J"
-};
-
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  }
-
-  const db = firebase.firestore();
-
-  function logResponse(answer, url) {
-  console.log("Clicked:", answer);
-
-  db.collection("responses").add({
-    answer: answer,
-    timestamp: new Date()
-  }).then(() => {
-    console.log("Logged to Firestore.");
-    window.location.href = url;
-  }).catch((error) => {
-    console.error("Error logging response:", error);
-    window.location.href = url;
-  });
-}
-</script>
