@@ -20,13 +20,12 @@
 </body>
 </html>
 
-<!-- Firebase SDK scripts -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
 
 <script>
-  // Paste your Firebase config here:
-  const firebaseConfig = {
+    
+const firebaseConfig = {
   apiKey: "AIzaSyB6jFcBRB2HM150YV1PagNFdMosgKrfSj4",
   authDomain: "askherout-b7d60.firebaseapp.com",
   projectId: "askherout-b7d60",
@@ -36,14 +35,12 @@
   measurementId: "G-CD047T7W3J"
 };
 
-  // Initialize Firebase
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   }
 
   const db = firebase.firestore();
 
-  // Function to log response then navigate
   function logResponse(answer, url) {
     db.collection("responses").add({
       answer: answer,
