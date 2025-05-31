@@ -18,42 +18,42 @@
     <p style="color: #111;">Kyla Gerona Calimutan :></p>
 
     <div class="btn">
-      <a href="#" onclick="logResponse('yes', 'yes.html')">Yes</a>
-      <a href="#" onclick="logResponse('no', 'no.html')">No</a>
+      <button onclick="logResponse('Yes', 'yes.html')">Yes</button>
+      <button onclick="logResponse('No', 'no.html')">No</button>
     </div>
+
   </div>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBpjObfr1lsF8ZByAm7-SGzNxZRiIpqvSo",
-      authDomain: "askherout-249e7.firebaseapp.com",
-      projectId: "askherout-249e7",
-      storageBucket: "askherout-249e7.firebasestorage.app",
-      messagingSenderId: "339296264296",
-      appId: "1:339296264296:web:2708ed33e92eb30bc09bdd",
-      measurementId: "G-7BZGS3D43G"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyBpjObfr1lsF8ZByAm7-SGzNxZRiIpqvSo",
+    authDomain: "askherout-249e7.firebaseapp.com",
+    projectId: "askherout-249e7",
+    storageBucket: "askherout-249e7.firebasestorage.app",
+    messagingSenderId: "339296264296",
+    appId: "1:339296264296:web:2708ed33e92eb30bc09bdd",
+    measurementId: "G-7BZGS3D43G"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-    window.logResponse = async function(answer, url) {
-      console.log("Clicked:", answer);
-      try {
-        await addDoc(collection(db, "responses"), {
-          answer: answer,
-          timestamp: new Date()
-        });
-        console.log("Logged to Firestore.");
-        window.location.href = url;
-      } catch (error) {
-        console.error("Error writing to Firestore:", error);
-        window.location.href = url;
-      }
-    };
-  </script>
+  window.logResponse = async function(answer, url) {
+    try {
+      await addDoc(collection(db, "responses"), {
+        answer: answer,
+        timestamp: new Date()
+      });
+      window.location.href = url;
+    } catch (error) {
+      console.error("Failed to log response:", error);
+      window.location.href = url;
+    }
+  };
+</script>
+
 </body>
 </html>
